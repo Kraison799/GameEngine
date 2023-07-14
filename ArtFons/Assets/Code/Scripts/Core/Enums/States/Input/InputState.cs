@@ -3,7 +3,7 @@
     public enum InputState
     {
         Disabled,
-        First,
-        Third
+        Third,
+        UI
     }
 }

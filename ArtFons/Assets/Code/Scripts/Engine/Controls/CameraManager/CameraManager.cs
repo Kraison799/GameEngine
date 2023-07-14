@@ -26,13 +26,11 @@ namespace Code.Scripts.Engine.Controls.CameraManager
 
         public void TransitionTo(CameraState state)
         {
-            switch (state)
+            _state = state;
+            switch (_state)
             {
                 case CameraState.None:
                     _animator.Play("Default");
-                    break;
-                case CameraState.FirstV:
-                    _animator.Play("FirstView");
                     break;
                 case CameraState.ThirdV:
                     _animator.Play("ThirdView");

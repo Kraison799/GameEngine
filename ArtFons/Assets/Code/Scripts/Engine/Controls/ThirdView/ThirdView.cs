@@ -24,7 +24,7 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
     ""name"": ""ThirdView"",
     ""maps"": [
         {
-            ""name"": ""Axis"",
+            ""name"": ""Walking"",
             ""id"": ""74164175-f9c3-451f-acfa-7567ed73638b"",
             ""actions"": [
                 {
@@ -41,6 +41,15 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""c3839931-2771-4f10-9a35-6e425ef0c0af"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""a797263f-d771-4568-a141-f8932df3b9ff"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -134,16 +143,123 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27b71388-3f1f-4e8b-95d2-a0676c6559e3"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8172071c-613e-4b6b-8b80-aa29ee1cb7ca"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Inventory"",
+            ""id"": ""8c312c44-252b-4694-9410-8b803140381e"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f5667ee-f72a-4c87-ab1d-6af0439d822e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b9cd7d9b-44d6-4ce9-a8d4-237c4c3ee62b"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""51d7cbda-dd3c-4283-bb3e-3d56450aab10"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Interactions"",
+            ""id"": ""3a1f5f24-5430-4eb7-a3a4-522c29096b98"",
+            ""actions"": [
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""313b610c-25cb-4713-b63a-fb79eb4452cb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""95e6d066-5910-4b36-bce4-1820fead6858"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""354d35f4-2198-469b-86c4-e59ad2aa9d98"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Axis
-        m_Axis = asset.FindActionMap("Axis", throwIfNotFound: true);
-        m_Axis_Move = m_Axis.FindAction("Move", throwIfNotFound: true);
-        m_Axis_Look = m_Axis.FindAction("Look", throwIfNotFound: true);
+        // Walking
+        m_Walking = asset.FindActionMap("Walking", throwIfNotFound: true);
+        m_Walking_Move = m_Walking.FindAction("Move", throwIfNotFound: true);
+        m_Walking_Look = m_Walking.FindAction("Look", throwIfNotFound: true);
+        m_Walking_Run = m_Walking.FindAction("Run", throwIfNotFound: true);
+        // Inventory
+        m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
+        m_Inventory_ToggleMenu = m_Inventory.FindAction("ToggleMenu", throwIfNotFound: true);
+        // Interactions
+        m_Interactions = asset.FindActionMap("Interactions", throwIfNotFound: true);
+        m_Interactions_Interact = m_Interactions.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -202,35 +318,40 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Axis
-    private readonly InputActionMap m_Axis;
-    private List<IAxisActions> m_AxisActionsCallbackInterfaces = new List<IAxisActions>();
-    private readonly InputAction m_Axis_Move;
-    private readonly InputAction m_Axis_Look;
-    public struct AxisActions
+    // Walking
+    private readonly InputActionMap m_Walking;
+    private List<IWalkingActions> m_WalkingActionsCallbackInterfaces = new List<IWalkingActions>();
+    private readonly InputAction m_Walking_Move;
+    private readonly InputAction m_Walking_Look;
+    private readonly InputAction m_Walking_Run;
+    public struct WalkingActions
     {
         private @ThirdView m_Wrapper;
-        public AxisActions(@ThirdView wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Axis_Move;
-        public InputAction @Look => m_Wrapper.m_Axis_Look;
-        public InputActionMap Get() { return m_Wrapper.m_Axis; }
+        public WalkingActions(@ThirdView wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Walking_Move;
+        public InputAction @Look => m_Wrapper.m_Walking_Look;
+        public InputAction @Run => m_Wrapper.m_Walking_Run;
+        public InputActionMap Get() { return m_Wrapper.m_Walking; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(AxisActions set) { return set.Get(); }
-        public void AddCallbacks(IAxisActions instance)
+        public static implicit operator InputActionMap(WalkingActions set) { return set.Get(); }
+        public void AddCallbacks(IWalkingActions instance)
         {
-            if (instance == null || m_Wrapper.m_AxisActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_AxisActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_WalkingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_WalkingActionsCallbackInterfaces.Add(instance);
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
         }
 
-        private void UnregisterCallbacks(IAxisActions instance)
+        private void UnregisterCallbacks(IWalkingActions instance)
         {
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
@@ -238,26 +359,130 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
         }
 
-        public void RemoveCallbacks(IAxisActions instance)
+        public void RemoveCallbacks(IWalkingActions instance)
         {
-            if (m_Wrapper.m_AxisActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_WalkingActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IAxisActions instance)
+        public void SetCallbacks(IWalkingActions instance)
         {
-            foreach (var item in m_Wrapper.m_AxisActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_WalkingActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_AxisActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_WalkingActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public AxisActions @Axis => new AxisActions(this);
-    public interface IAxisActions
+    public WalkingActions @Walking => new WalkingActions(this);
+
+    // Inventory
+    private readonly InputActionMap m_Inventory;
+    private List<IInventoryActions> m_InventoryActionsCallbackInterfaces = new List<IInventoryActions>();
+    private readonly InputAction m_Inventory_ToggleMenu;
+    public struct InventoryActions
+    {
+        private @ThirdView m_Wrapper;
+        public InventoryActions(@ThirdView wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleMenu => m_Wrapper.m_Inventory_ToggleMenu;
+        public InputActionMap Get() { return m_Wrapper.m_Inventory; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InventoryActions set) { return set.Get(); }
+        public void AddCallbacks(IInventoryActions instance)
+        {
+            if (instance == null || m_Wrapper.m_InventoryActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InventoryActionsCallbackInterfaces.Add(instance);
+            @ToggleMenu.started += instance.OnToggleMenu;
+            @ToggleMenu.performed += instance.OnToggleMenu;
+            @ToggleMenu.canceled += instance.OnToggleMenu;
+        }
+
+        private void UnregisterCallbacks(IInventoryActions instance)
+        {
+            @ToggleMenu.started -= instance.OnToggleMenu;
+            @ToggleMenu.performed -= instance.OnToggleMenu;
+            @ToggleMenu.canceled -= instance.OnToggleMenu;
+        }
+
+        public void RemoveCallbacks(IInventoryActions instance)
+        {
+            if (m_Wrapper.m_InventoryActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IInventoryActions instance)
+        {
+            foreach (var item in m_Wrapper.m_InventoryActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_InventoryActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public InventoryActions @Inventory => new InventoryActions(this);
+
+    // Interactions
+    private readonly InputActionMap m_Interactions;
+    private List<IInteractionsActions> m_InteractionsActionsCallbackInterfaces = new List<IInteractionsActions>();
+    private readonly InputAction m_Interactions_Interact;
+    public struct InteractionsActions
+    {
+        private @ThirdView m_Wrapper;
+        public InteractionsActions(@ThirdView wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Interact => m_Wrapper.m_Interactions_Interact;
+        public InputActionMap Get() { return m_Wrapper.m_Interactions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(InteractionsActions set) { return set.Get(); }
+        public void AddCallbacks(IInteractionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_InteractionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InteractionsActionsCallbackInterfaces.Add(instance);
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+        }
+
+        private void UnregisterCallbacks(IInteractionsActions instance)
+        {
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+        }
+
+        public void RemoveCallbacks(IInteractionsActions instance)
+        {
+            if (m_Wrapper.m_InteractionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IInteractionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_InteractionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_InteractionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public InteractionsActions @Interactions => new InteractionsActions(this);
+    public interface IWalkingActions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
+    }
+    public interface IInventoryActions
+    {
+        void OnToggleMenu(InputAction.CallbackContext context);
+    }
+    public interface IInteractionsActions
+    {
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

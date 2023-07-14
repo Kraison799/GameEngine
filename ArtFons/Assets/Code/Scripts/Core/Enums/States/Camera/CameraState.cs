@@ -3,7 +3,6 @@
     public enum CameraState
     {
         None,
-        FirstV,
         ThirdV
     }
 }

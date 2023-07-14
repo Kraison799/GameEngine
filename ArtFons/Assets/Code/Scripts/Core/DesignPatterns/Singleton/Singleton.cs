@@ -9,7 +9,15 @@ namespace Code.Scripts.Core.DesignPatterns.Singleton
 
         private static T GetInstance()
         {
-            if (!(_instance is null)) return _instance;
+            if (_instance is not null) return _instance;
+
+            var search = GameObject.FindObjectsOfType<T>();
+            if (search.Length != 0)
+            {
+                _instance = search[0];
+                return _instance;
+            }
+
             var container = new GameObject();
             _instance = container.AddComponent<T>();
             return _instance;

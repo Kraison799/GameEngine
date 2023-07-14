@@ -11,7 +11,10 @@ namespace Code.Scripts.Engine.Player.Movement
 
         [SerializeField] private float _sensibilityX = 2.0f;
         [SerializeField] private float _sensibilityY = 2.0f;
-        
+        [SerializeField] private float _speed = 8.0f;
+        [SerializeField] private float _acceleration = 16.0f;
+        [SerializeField] private float _runningBoost = 1.5f;
+
         private NavMeshAgent _navMeshAgent;
         private Transform _camTransform;
 
@@ -32,12 +35,22 @@ namespace Code.Scripts.Engine.Player.Movement
 
         private void Move()
         {
+            if (InputManager.Instance.IsRunning())
+            {
+                _navMeshAgent.speed = _speed * _runningBoost;
+                _navMeshAgent.acceleration = _acceleration * _runningBoost;
+            }
+            else
+            {
+                _navMeshAgent.speed = _speed;
+                _navMeshAgent.acceleration = _acceleration;
+            }
+            
             var input = InputManager.Instance.GetMove();
-            Debug.Log(input);
             var currentPos = transform.position;
             var destination = currentPos +
                                     _camTransform.right * (input.x * _sensibilityX) +
-                                    _camTransform.forward * (input.y * _sensibilityX);
+                                    _camTransform.forward * (input.y * _sensibilityY);
             _navMeshAgent.destination = destination;
         }
         
