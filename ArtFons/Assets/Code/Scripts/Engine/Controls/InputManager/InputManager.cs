@@ -81,12 +81,23 @@ namespace Code.Scripts.Engine.Controls.InputManager
             };
         }
 
+        public bool IsWalking()
+        {
+            return _state switch
+            {
+                InputState.Disabled => false,
+                InputState.Third => (GetMove() != Vector2.zero && !_thirdView.Walking.Run.IsPressed()),
+                InputState.UI => false,
+                _ => false
+            };
+        }
+
         public bool IsRunning()
         {
             return _state switch
             {
                 InputState.Disabled => false,
-                InputState.Third => _thirdView.Walking.Run.IsPressed(),
+                InputState.Third => (GetMove() != Vector2.zero && _thirdView.Walking.Run.IsPressed()),
                 InputState.UI => false,
                 _ => false
             };
