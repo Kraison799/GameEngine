@@ -53,6 +53,15 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Roll"",
+                    ""type"": ""Button"",
+                    ""id"": ""6eb8a447-6e44-4f0d-aff5-5c4dc8cab049"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,28 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e12d65d-fc2c-46cb-876b-843518f89b2b"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94e3473e-bfd0-491f-9995-82a2e4d912c2"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -254,6 +285,7 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
         m_Walking_Move = m_Walking.FindAction("Move", throwIfNotFound: true);
         m_Walking_Look = m_Walking.FindAction("Look", throwIfNotFound: true);
         m_Walking_Run = m_Walking.FindAction("Run", throwIfNotFound: true);
+        m_Walking_Roll = m_Walking.FindAction("Roll", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_ToggleMenu = m_Inventory.FindAction("ToggleMenu", throwIfNotFound: true);
@@ -324,6 +356,7 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
     private readonly InputAction m_Walking_Move;
     private readonly InputAction m_Walking_Look;
     private readonly InputAction m_Walking_Run;
+    private readonly InputAction m_Walking_Roll;
     public struct WalkingActions
     {
         private @ThirdView m_Wrapper;
@@ -331,6 +364,7 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Walking_Move;
         public InputAction @Look => m_Wrapper.m_Walking_Look;
         public InputAction @Run => m_Wrapper.m_Walking_Run;
+        public InputAction @Roll => m_Wrapper.m_Walking_Roll;
         public InputActionMap Get() { return m_Wrapper.m_Walking; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -349,6 +383,9 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @Roll.started += instance.OnRoll;
+            @Roll.performed += instance.OnRoll;
+            @Roll.canceled += instance.OnRoll;
         }
 
         private void UnregisterCallbacks(IWalkingActions instance)
@@ -362,6 +399,9 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @Roll.started -= instance.OnRoll;
+            @Roll.performed -= instance.OnRoll;
+            @Roll.canceled -= instance.OnRoll;
         }
 
         public void RemoveCallbacks(IWalkingActions instance)
@@ -476,6 +516,7 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnRoll(InputAction.CallbackContext context);
     }
     public interface IInventoryActions
     {

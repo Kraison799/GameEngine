@@ -1,4 +1,3 @@
-using System;
 using Code.Scripts.Core.Enums.Animations;
 using Code.Scripts.Engine.Controls.InputManager;
 using UnityEngine;
@@ -7,56 +6,72 @@ namespace Code.Scripts.Engine.Player.Animations
 {
     public class AnimationManager : MonoBehaviour
     {
-        [SerializeField] private MoveState _moveState;
+        private AnimState _state;
         private Animator _animator;
+        private float _animCooldown;
 
         protected void Awake()
         {
-            _moveState = MoveState.Idle;
-            _animator = transform.GetComponent<Animator>();
+            _state = AnimState.Idle;
+            _animator = GetComponent<Animator>();
+            _animCooldown = 0.0f;
         }
 
         protected void Update()
         {
-            SetMoveState();
+            _animCooldown -= Time.deltaTime;
+            
+            if (_animCooldown <= 0.0f) SetState();
         }
 
-        private void MoveAnimation()
+        private void PlayAnimation()
         {
-            switch (_moveState)
+            switch (_state)
             {
-                case MoveState.Idle:
+                case AnimState.Idle:
                     _animator.SetTrigger("Idle");
                     break;
-                case MoveState.Walk:
+                case AnimState.Walk:
                     _animator.SetTrigger("Walk");
                     break;
-                case MoveState.Run:
+                case AnimState.Run:
                     _animator.SetTrigger("Run");
+                    break;
+                case AnimState.Roll:
+                    _animator.SetTrigger("Roll");
                     break;
             }
         }
 
-        private void SetMoveState()
+        private void SetState()
         {
-            if (InputManager.Instance.IsWalking() && _moveState != MoveState.Walk)
+            if (InputManager.Instance.GetRoll())
             {
-                _moveState = MoveState.Walk;
-                MoveAnimation();
+                _state = AnimState.Roll;
+                _animCooldown = 1.0f;
+                PlayAnimation();
                 return;
             }
             
-            if (InputManager.Instance.IsRunning() && _moveState != MoveState.Run)
+            if (InputManager.Instance.IsWalking() && _state != AnimState.Walk)
             {
-                _moveState = MoveState.Run;
-                MoveAnimation();
+                _state = AnimState.Walk;
+                PlayAnimation();
+                return;
+            }
+            
+            if (InputManager.Instance.IsRunning() && _state != AnimState.Run)
+            {
+                _state = AnimState.Run;
+                PlayAnimation();
                 return;
             }
 
-            if (!InputManager.Instance.IsWalking() && !InputManager.Instance.IsRunning() && _moveState != MoveState.Idle)
+            if (!InputManager.Instance.IsWalking() && !InputManager.Instance.IsRunning() && _state != AnimState.Idle)
             {
-                _moveState = MoveState.Idle;
-                MoveAnimation();
+                _state = AnimState.Idle;
+                PlayAnimation();
+                return;
             }
         }
     }

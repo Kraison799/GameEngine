@@ -1,6 +1,4 @@
-﻿using System;
-using Code.Scripts.Core.Enums.States.Input;
-using Unity.VisualScripting;
+﻿using Code.Scripts.Core.Enums.States.Input;
 using UnityEngine;
 
 namespace Code.Scripts.Engine.Controls.InputManager
@@ -120,6 +118,17 @@ namespace Code.Scripts.Engine.Controls.InputManager
             {
                 InputState.Disabled => false,
                 InputState.Third => _thirdView.Interactions.Interact.WasPressedThisFrame(),
+                InputState.UI => false,
+                _ => false
+            };
+        }
+        
+        public bool GetRoll()
+        {
+            return _state switch
+            {
+                InputState.Disabled => false,
+                InputState.Third => _thirdView.Walking.Roll.WasPressedThisFrame(),
                 InputState.UI => false,
                 _ => false
             };

@@ -1,9 +1,10 @@
 ﻿namespace Code.Scripts.Core.Enums.Animations
 {
-    public enum MoveState
+    public enum AnimState
     {
         Idle,
         Walk,
-        Run
+        Run,
+        Roll
     }
 }
