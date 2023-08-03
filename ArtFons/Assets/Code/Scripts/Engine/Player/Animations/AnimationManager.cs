@@ -1,4 +1,5 @@
 using Code.Scripts.Core.Enums.Animations;
+using Code.Scripts.Core.Settings.Animations;
 using Code.Scripts.Engine.Controls.InputManager;
 using UnityEngine;
 
@@ -8,20 +9,21 @@ namespace Code.Scripts.Engine.Player.Animations
     {
         private AnimState _state;
         private Animator _animator;
-        private float _animCooldown;
+        private float _currentCooldown;
+        private AnimationsSettings _animations;
 
         protected void Awake()
         {
             _state = AnimState.Idle;
             _animator = GetComponent<Animator>();
-            _animCooldown = 0.0f;
+            
         }
 
         protected void Update()
         {
-            _animCooldown -= Time.deltaTime;
+            _currentCooldown -= Time.deltaTime;
             
-            if (_animCooldown <= 0.0f) SetState();
+            if (_currentCooldown <= 0.0f) SetState();
         }
 
         private void PlayAnimation()
@@ -48,7 +50,7 @@ namespace Code.Scripts.Engine.Player.Animations
             if (InputManager.Instance.GetRoll())
             {
                 _state = AnimState.Roll;
-                _animCooldown = 1.0f;
+                _currentCooldown = AnimationsSettings.Instance.GetAnim("Roll").GetFixedCooldown();
                 PlayAnimation();
                 return;
             }

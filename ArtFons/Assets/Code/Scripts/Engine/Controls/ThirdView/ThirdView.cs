@@ -189,7 +189,7 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""94e3473e-bfd0-491f-9995-82a2e4d912c2"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -267,7 +267,7 @@ public partial class @ThirdView: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""354d35f4-2198-469b-86c4-e59ad2aa9d98"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

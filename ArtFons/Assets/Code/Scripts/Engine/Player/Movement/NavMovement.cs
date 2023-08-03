@@ -53,7 +53,7 @@ namespace Code.Scripts.Engine.Player.Movement
                 }
                 
                 var currentPos = transform.position;
-                var destination = currentPos;
+                Vector3 destination;
                 
                 if (InputManager.Instance.GetRoll())
                 {
