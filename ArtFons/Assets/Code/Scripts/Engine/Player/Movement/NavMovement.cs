@@ -11,10 +11,12 @@ namespace Code.Scripts.Engine.Player.Movement
         private float _sensibilityX = 2.0f;
         private float _sensibilityY = 2.0f;
         private float _speed = 6.0f;
-        private float _acceleration = 12.0f;
+        private float _rotSpeed = 280.0f;
+        private float _acceleration = 120.0f;
         private float _runningBoost = 1.75f;
 
         private float _dash;
+        private float _dashDistance = 8.0f;
 
         private NavMeshAgent _navMeshAgent;
         private Transform _camTransform;
@@ -59,7 +61,7 @@ namespace Code.Scripts.Engine.Player.Movement
                 {
                     _dash = 1.10f;
                     destination = currentPos +
-                                  transform.forward * 10.0f;
+                                  transform.forward * _dashDistance;
                     _navMeshAgent.speed = _speed * _runningBoost * 1.25f;
                     _navMeshAgent.acceleration = _acceleration * _runningBoost * 1.25f;
                 }
@@ -71,7 +73,14 @@ namespace Code.Scripts.Engine.Player.Movement
                                   _camTransform.forward * (input.y * _sensibilityY);    
                 }
     
-                _navMeshAgent.destination = destination;    
+                _navMeshAgent.destination = destination;
+
+                /*
+                Vector3 dir = destination - transform.position;
+                dir.y = 0;
+                Quaternion rot = Quaternion.LookRotation(dir);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rot, _rotSpeed * Time.deltaTime);
+                */
             }
         }
 
