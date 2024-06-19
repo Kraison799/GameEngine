@@ -34,7 +34,7 @@ namespace Code.Scripts.Engine.Player.Movement
 
         public void Update()
         {
-            _dash -= Time.deltaTime;
+            if (_dash > 0.0f) _dash -= Time.deltaTime;
             
             Move();
         }
@@ -59,7 +59,7 @@ namespace Code.Scripts.Engine.Player.Movement
                 
                 if (InputManager.Instance.GetRoll())
                 {
-                    _dash = 1.10f;
+                    _dash = 0.80f;
                     destination = currentPos +
                                   transform.forward * _dashDistance;
                     _navMeshAgent.speed = _speed * _runningBoost * 1.25f;
@@ -74,13 +74,6 @@ namespace Code.Scripts.Engine.Player.Movement
                 }
     
                 _navMeshAgent.destination = destination;
-
-                /*
-                Vector3 dir = destination - transform.position;
-                dir.y = 0;
-                Quaternion rot = Quaternion.LookRotation(dir);
-                transform.rotation = Quaternion.Lerp(transform.rotation, rot, _rotSpeed * Time.deltaTime);
-                */
             }
         }
 

@@ -50,7 +50,7 @@ namespace Code.Scripts.Engine.Player.Animations
             if (InputManager.Instance.GetRoll())
             {
                 _state = AnimState.Roll;
-                _currentCooldown = AnimationsSettings.Instance.GetAnim("Roll").GetFixedCooldown();
+                _currentCooldown = AnimationsSettings.Instance.GetAnim("Roll").GetFixedCooldown() - 0.25f;
                 PlayAnimation();
                 return;
             }
